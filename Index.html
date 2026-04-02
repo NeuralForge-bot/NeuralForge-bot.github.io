@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NeuralForge ⚡ — AI Automation</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --bg: #0a0a0a;
+  --card: #18181b;
+  --border: #27272a;
+  --text: #f5f5f5;
+  --muted: #a1a1aa;
+  --accent: #22c55e;
+  --accent2: #6366f1;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'DM Sans', sans-serif;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+h1, h2, h3, h4 { font-family: 'Syne', sans-serif; font-weight: 700; }
+
+/* NAV */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 20px 60px;
+  background: rgba(10,10,10,0.85);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+}
+.nav-logo { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.2rem; }
+.nav-logo span { color: var(--accent); }
+.nav-links { display: flex; gap: 32px; list-style: none; }
+.nav-links a {
+  color: var(--muted); text-decoration: none; font-size: 0.9rem;
+  transition: color 0.3s;
+}
+.nav-links a:hover { color: var(--accent); }
+
+/* SECTIONS */
+section { padding: 120px 60px; max-width: 1200px; margin: 0 auto; }
+
+/* HERO */
+.hero { padding-top: 180px; text-align: center; max-width: 900px; }
+.hero-tag {
+  display: inline-block; padding: 6px 16px; border-radius: 100px;
+  background: rgba(34,197,94,0.1); color: var(--accent);
+  font-size: 0.8rem; font-weight: 600; letter-spacing: 2px;
+  margin-bottom: 24px; border: 1px solid rgba(34,197,94,0.2);
+}
+.hero h1 {
+  font-size: 3.8rem; line-height: 1.1; margin-bottom: 24px;
+  background: linear-gradient(135deg, #f5f5f5 0%, #a1a1aa 100%);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+}
+.hero p { font-size: 1.2rem; color: var(--muted); margin-bottom: 40px; max-width: 600px; margin-left: auto; margin-right: auto; }
+.hero-buttons { display: flex; gap: 16px; justify-content: center; margin-bottom: 32px; }
+.btn {
+  padding: 14px 32px; border-radius: 10px; font-size: 1rem;
+  font-weight: 600; text-decoration: none; transition: all 0.3s;
+  cursor: pointer; font-family: 'DM Sans', sans-serif;
+}
+.btn-primary { background: var(--accent); color: #0a0a0a; border: none; }
+.btn-primary:hover { background: #16a34a; transform: translateY(-2px); box-shadow: 0 8px 30px rgba(34,197,94,0.3); }
+.btn-outline { background: transparent; color: var(--text); border: 1px solid var(--border); }
+.btn-outline:hover { border-color: var(--accent); color: var(--accent); }
+.hero-stack { color: var(--muted); font-size: 0.85rem; letter-spacing: 1px; }
+
+/* PROBLEMS */
+.problems { text-align: center; }
+.problems h2 { font-size: 2.5rem; margin-bottom: 60px; }
+.problems-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-bottom: 40px; }
+.problem-card {
+  background: var(--card); border: 1px solid var(--border); border-radius: 16px;
+  padding: 40px 32px; text-align: left; transition: all 0.3s;
+}
+.problem-card:hover { border-color: var(--accent); transform: translateY(-4px); }
+.problem-icon { font-size: 2rem; margin-bottom: 16px; }
+.problem-card h3 { font-size: 1.2rem; margin-bottom: 12px; }
+.problem-card p { color: var(--muted); font-size: 0.95rem; }
+.problems-cta { color: var(--accent); font-size: 1.1rem; font-weight: 600; }
+
+/* SERVICES */
+.services h2 { font-size: 2.5rem; margin-bottom: 60px; text-align: center; }
+.services-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
+.service-card {
+  background: var(--card); border: 1px solid var(--border); border-radius: 16px;
+  padding: 40px; transition: all 0.3s; position: relative; overflow: hidden;
+}
+.service-card:hover { border-color: var(--accent); }
+.service-card::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+  background: linear-gradient(90deg, var(--accent), var(--accent2));
+  opacity: 0; transition: opacity 0.3s;
+}
+.service-card:hover::before { opacity: 1; }
+.service-icon { font-size: 2rem; margin-bottom: 16px; }
+.service-card h3 { font-size: 1.3rem; margin-bottom: 12px; }
+.service-card p { color: var(--muted); font-size: 0.95rem; margin-bottom: 16px; }
+.service-impact {
+  display: inline-block; padding: 4px 12px; border-radius: 100px;
+  background: rgba(34,197,94,0.1); color: var(--accent); font-size: 0.8rem; font-weight: 600;
+}
+
+/* PROCESS */
+.process { text-align: center; }
+.process h2 { font-size: 2.5rem; margin-bottom: 60px; }
+.steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; margin-bottom: 40px; }
+.step { text-align: left; position: relative; }
+.step-number {
+  font-family: 'Syne', sans-serif; font-size: 4rem; font-weight: 800;
+  color: var(--border); margin-bottom: 16px; line-height: 1;
+}
+.step h3 { font-size: 1.3rem; margin-bottom: 12px; color: var(--accent); }
+.step p { color: var(--muted); font-size: 0.95rem; }
+.process-note { color: var(--muted); font-size: 0.9rem; }
+
+/* TECH STACK */
+.stack { text-align: center; }
+.stack h2 { font-size: 2.5rem; margin-bottom: 60px; }
+.stack-row { margin-bottom: 24px; }
+.stack-label { color: var(--muted); font-size: 0.8rem; letter-spacing: 2px; margin-bottom: 12px; text-transform: uppercase; }
+.stack-badges { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+.badge {
+  padding: 8px 20px; border-radius: 8px; font-size: 0.9rem; font-weight: 500;
+  background: var(--card); border: 1px solid var(--border); color: var(--text);
+  transition: all 0.3s;
+}
+.badge:hover { border-color: var(--accent); color: var(--accent); }
+
+/* PROJECTS */
+.projects h2 { font-size: 2.5rem; margin-bottom: 60px; text-align: center; }
+.projects-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
+.project-card {
+  background: var(--card); border: 1px solid var(--border); border-radius: 16px;
+  padding: 36px; transition: all 0.3s; position: relative;
+}
+.project-card:hover { border-color: var(--accent2); transform: translateY(-4px); }
+.project-tag {
+  display: inline-block; padding: 4px 10px; border-radius: 6px;
+  background: rgba(99,102,241,0.15); color: var(--accent2);
+  font-size: 0.75rem; font-weight: 600; letter-spacing: 1px; margin-bottom: 16px;
+}
+.project-card h3 { font-size: 1.2rem; margin-bottom: 10px; }
+.project-card p { color: var(--muted); font-size: 0.9rem; margin-bottom: 16px; }
+.project-stack { color: var(--muted); font-size: 0.8rem; font-style: italic; }
+
+/* ABOUT */
+.about { display: flex; gap: 60px; align-items: center; }
+.about-text { flex: 1; }
+.about h2 { font-size: 2.5rem; margin-bottom: 24px; }
+.about p { color: var(--muted); font-size: 1.05rem; margin-bottom: 16px; }
+.about-highlight { color: var(--text); font-weight: 600; }
+.about-details { display: flex; gap: 24px; margin-top: 24px; }
+.about-detail { color: var(--muted); font-size: 0.9rem; }
+
+/* CTA */
+.cta { text-align: center; padding: 100px 60px; }
+.cta h2 {
+  font-size: 3rem; margin-bottom: 20px;
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+}
+.cta p { color: var(--muted); font-size: 1.1rem; margin-bottom: 40px; }
+.cta-socials { display: flex; gap: 24px; justify-content: center; margin-top: 32px; }
+.cta-socials a { color: var(--muted); text-decoration: none; font-size: 0.9rem; transition: color 0.3s; }
+.cta-socials a:hover { color: var(--accent); }
+
+/* FOOTER */
+footer {
+  text-align: center; padding: 40px; border-top: 1px solid var(--border);
+  color: var(--muted); font-size: 0.85rem;
+}
+
+/* ANIMATIONS */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.hero, section { animation: fadeUp 0.8s ease-out; }
+
+/* MOBILE */
+@media (max-width: 768px) {
+  nav { padding: 16px 24px; }
+  .nav-links { display: none; }
+  section { padding: 80px 24px; }
+  .hero { padding-top: 140px; }
+  .hero h1 { font-size: 2.4rem; }
+  .hero-buttons { flex-direction: column; align-items: center; }
+  .problems-grid, .services-grid, .projects-grid { grid-template-columns: 1fr; }
+  .steps { grid-template-columns: 1fr; }
+  .about { flex-direction: column; }
+  .cta h2 { font-size: 2rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo"><span>⚡</span> NeuralForge</div>
+  <ul class="nav-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-tag">AI AUTOMATION SPECIALIST</div>
+  <h1>I build AI systems that save your team 10-20 hours every week.</h1>
+  <p>Custom AI agents & automated workflows for service businesses. No migration. No complexity. Just results.</p>
+  <div class="hero-buttons">
+    <a href="mailto:neuralforge.ai@gmail.com" class="btn btn-primary">Let's Talk</a>
+    <a href="#projects" class="btn btn-outline">See My Work</a>
+  </div>
+  <div class="hero-stack">Built with Python • n8n • Make • OpenAI • LangChain</div>
+</section>
+
+<!-- PROBLEMS -->
+<section class="problems">
+  <h2>Sound familiar?</h2>
+  <div class="problems-grid">
+    <div class="problem-card">
+      <div class="problem-icon">📧</div>
+      <h3>Email overload</h3>
+      <p>Your team spends hours sorting, reading, and replying to the same types of emails every day.</p>
+    </div>
+    <div class="problem-card">
+      <div class="problem-icon">🔄</div>
+      <h3>Repetitive tasks</h3>
+      <p>Copy-pasting data between tools, updating spreadsheets manually, chasing follow-ups.</p>
+    </div>
+    <div class="problem-card">
+      <div class="problem-icon">⏰</div>
+      <h3>No time for real work</h3>
+      <p>Your best people are stuck on admin instead of doing what actually grows the business.</p>
+    </div>
+  </div>
+  <p class="problems-cta">What if AI could handle all of this — while you focus on what matters?</p>
+</section>
+
+<!-- SERVICES -->
+<section class="services" id="services">
+  <h2>What I Build</h2>
+  <div class="services-grid">
+    <div class="service-card">
+      <div class="service-icon">🔄</div>
+      <h3>Smart Workflows</h3>
+      <p>Automated n8n/Make workflows powered by AI. From email triage to document processing — your tasks run on autopilot.</p>
+      <span class="service-impact">-15h/week of manual work</span>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">🤖</div>
+      <h3>AI Agents</h3>
+      <p>Custom chatbots trained on YOUR data using RAG. They answer clients, qualify leads, and book meetings — 24/7.</p>
+      <span class="service-impact">Always-on support</span>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">📧</div>
+      <h3>Email Automation</h3>
+      <p>AI reads, classifies, and drafts responses to incoming emails. Your inbox manages itself.</p>
+      <span class="service-impact">90% faster response</span>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">📊</div>
+      <h3>Data Pipelines</h3>
+      <p>Extract info from documents, classify data, and route it to the right place — zero manual entry.</p>
+      <span class="service-impact">Zero data entry errors</span>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section class="process">
+  <h2>How It Works</h2>
+  <div class="steps">
+    <div class="step">
+      <div class="step-number">01</div>
+      <h3>Audit</h3>
+      <p>I analyze your current workflows and identify what AI can automate. Free 15-min discovery call.</p>
+    </div>
+    <div class="step">
+      <div class="step-number">02</div>
+      <h3>Build</h3>
+      <p>I design and deploy custom AI workflows using your existing tools. No migration needed.</p>
+    </div>
+    <div class="step">
+      <div class="step-number">03</div>
+      <h3>Launch & Train</h3>
+      <p>Your automations go live. I train your team and provide documentation so you stay in control.</p>
+    </div>
+  </div>
+  <p class="process-note">Average delivery time: 1-3 weeks depending on complexity.</p>
+</section>
+
+<!-- TECH STACK -->
+<section class="stack">
+  <h2>Tech Stack</h2>
+  <div class="stack-row">
+    <p class="stack-label">AI & LLM</p>
+    <div class="stack-badges">
+      <span class="badge">Python</span>
+      <span class="badge">OpenAI</span>
+      <span class="badge">LangChain</span>
+      <span class="badge">Hugging Face</span>
+    </div>
+  </div>
+  <div class="stack-row">
+    <p class="stack-label">Automation</p>
+    <div class="stack-badges">
+      <span class="badge">n8n</span>
+      <span class="badge">Make</span>
+      <span class="badge">Zapier</span>
+    </div>
+  </div>
+  <div class="stack-row">
+    <p class="stack-label">Development</p>
+    <div class="stack-badges">
+      <span class="badge">JavaScript</span>
+      <span class="badge">Node.js</span>
+      <span class="badge">SQL</span>
+      <span class="badge">FastAPI</span>
+      <span class="badge">Docker</span>
+      <span class="badge">Git</span>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section class="projects" id="projects">
+  <h2>Projects</h2>
+  <div class="projects-grid">
+    <div class="project-card">
+      <span class="project-tag">COMING SOON</span>
+      <h3>AI Email Triage Agent</h3>
+      <p>Automatically classifies incoming emails and drafts personalized responses.</p>
+      <span class="project-stack">n8n + OpenAI + Gmail</span>
+    </div>
+    <div class="project-card">
+      <span class="project-tag">COMING SOON</span>
+      <h3>RAG Chatbot for SMBs</h3>
+      <p>Custom AI assistant trained on business documents. Answers questions 24/7.</p>
+      <span class="project-stack">Python + LangChain + ChromaDB</span>
+    </div>
+    <div class="project-card">
+      <span class="project-tag">COMING SOON</span>
+      <h3>Lead Qualifier Bot</h3>
+      <p>Scores and routes incoming leads based on AI analysis.</p>
+      <span class="project-stack">Make + OpenAI + CRM</span>
+    </div>
+    <div class="project-card">
+      <span class="project-tag">COMING SOON</span>
+      <h3>Multi-Agent Workflow</h3>
+      <p>Orchestrated AI agents for end-to-end business process automation.</p>
+      <span class="project-stack">Python + CrewAI + n8n</span>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="about-text">
+    <h2>About NeuralForge</h2>
+    <p>I'm <span class="about-highlight">Isfaw</span>, engineering student and founder of NeuralForge.</p>
+    <p>I believe most businesses waste 10-20 hours per week on tasks that AI can handle today — not in 5 years, <span class="about-highlight">today</span>.</p>
+    <p>I started NeuralForge to bridge the gap between powerful AI tools and the businesses that need them most. I specialize in building practical, no-nonsense automation systems that deliver measurable results from day one.</p>
+    <p><span class="about-highlight">No buzzwords. No complexity. Just workflows that work.</span></p>
+    <div class="about-details">
+      <span class="about-detail">📍 France</span>
+      <span class="about-detail">🌐 Working remotely</span>
+      <span class="about-detail">⚡ Available for freelance</span>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta" id="contact">
+  <h2>Got a process that wastes your team's time?</h2>
+  <p>Let's automate it. Book a free 15-minute discovery call.</p>
+  <a href="mailto:neuralforge.ai@gmail.com" class="btn btn-primary">Get in Touch</a>
+  <div class="cta-socials">
+    <a href="https://github.com/NeuralForge-bot">GitHub</a>
+    <a href="https://linkedin.com/in/neuralforge-bot">LinkedIn</a>
+    <a href="mailto:neuralforge.ai@gmail.com">Email</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  © 2026 NeuralForge ⚡ — AI Automation for Businesses · Built by Isfaw
+</footer>
+
+</body>
+</html>
